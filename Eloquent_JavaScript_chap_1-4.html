@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eloquent_JavaScript_Chap_1-4</title>
+</head>
+
+<body>
+    <div class="loopTriangle">
+        <p>Looping a triangle</p>
+        <textarea name="" id="loopTriangle" cols="30" rows="10"></textarea>
+        <div><button onclick="loopTriangle()">Loop a triangle</button></div>
+    </div>
+    <div class="fizzBuzz">
+        <p>FizzBuzz</p>
+        <textarea name="" id="fizzBuzz" cols="30" rows="10"></textarea>
+        <div><button onclick="fizzBuzz()">FizzBuzz</button></div>
+    </div>
+    <div class="chessBoard">
+        <p>Chessboard</p>
+        <textarea name="" id="chessBoard" cols="30" rows="10"></textarea>
+        <div><button onclick="chessBoard()">Generate chessboard</button></div>
+    </div>
+    <div class="min">
+        <p>Minimum</p>
+        <p>Seperate by commas</p>
+        <textarea name="" id="min" cols="30" rows="10"></textarea>
+        <div><input type="text" id="minResult"><button onclick="min()" style="margin-left: 5px;">Get min result</button>
+        </div>
+    </div>
+    <div class="isEven">
+        <p>Recursion</p>
+        <textarea name="" id="isEven" cols="30" rows="10"></textarea>
+        <div><input type="text" id="numbToCheck"><button onclick="check()" style="margin-left: 5px;">Is even</button>
+        </div>
+    </div>
+    <div class="bCounter">
+        <p>Bean counter</p>
+        <textarea name="" id="bCounter" cols="30" rows="10"></textarea>
+        <div><input type="text" id="bResult"><button onclick="countBs()" style="margin-left: 5px;">Count B's</button>
+        </div>
+    </div>
+    <div class="sumOfRange">
+        <p>The sum of a range</p>
+        <div>
+            <textarea name="" id="sumOfRange" cols="30" rows="10"></textarea>
+        </div>
+        <div>
+            <input type="text" id="start">
+            <input type="text" id="end">
+            <button onclick="range(document.getElementById('start').value, document.getElementById('end').value)"
+                style="margin-left: 5px;">Range</button>
+        </div>
+    </div>
+    <div class="reverseArr">
+        <p>Reversing an array</p>
+        <textarea name="" id="reverseArrResult" cols="30" rows="10"></textarea>
+        <div><button onclick="reverseArr()" style="margin-left: 5px;">Reverse Array</button>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function loopTriangle() {
+
+        tempArr = Array();
+        let symb = '';
+        tempArr.push(symb);
+
+        for (let i = 0; i < 7; i++) {
+            symb += '#'
+            console.log(symb);
+            tempArr.push(symb);
+        }
+
+        tempArr = tempArr.filter(e => e);
+
+        document.getElementById('loopTriangle').value = tempArr.join('\n');
+    }
+
+    function fizzBuzzCheck(i) {
+        if (i % 3 === 0 && i % 5 === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function fizzBuzz() {
+        // The modulus operator - or more precisely, the modulo operation - 
+        // is a way to determine the remainder of a division operation. 
+        // Instead of returning the result of the division, 
+        // the modulo operation returns the whole number remainder.
+
+        tempArr = Array();
+        for (let i = 0; i <= 100; i++) {
+            if (i % 3 === 0 && fizzBuzzCheck(i)) {
+                tempArr.push('Fizz');
+            }
+            else if (i % 5 === 0 && fizzBuzzCheck(i)) {
+                tempArr.push('Buzz');
+            }
+            else if (!fizzBuzzCheck(i)) {
+                tempArr.push('FizzBuzz');
+            }
+            else {
+                tempArr.push(i);
+            }
+        }
+
+        document.getElementById('fizzBuzz').value = tempArr.join('\n');
+    }
+
+    function chessBoard() {
+        tempArr = Array();
+        for (i = 0; i < 8; i++) {
+            if (i % 2 === 0) {
+                tempArr.push(' # # # #');
+            }
+            else if (i % 2 !== 0) {
+                tempArr.push('# # # #');
+            }
+        }
+
+        document.getElementById('chessBoard').value = tempArr.join('\n');
+    }
+
+    function min() {
+        let numbers = document.getElementById('min').value;
+        let tempArr = numbers.split(',');
+
+        document.getElementById('minResult').value = Math.min(...tempArr);
+    }
+
+    function check() {
+        let number = document.getElementById('numbToCheck').value;
+        result = isEven(number);
+
+        document.getElementById('isEven').value = result;
+    }
+
+    function isEven(number) {
+        if (number == 0) {
+            return true;
+        }
+        if (number == 1) {
+            return false;
+        }
+        else {
+            number -= 2;
+            return isEven(number);
+        }
+    }
+
+    function countBs() {
+        let counter = 0;
+        let txt = document.getElementById('bCounter').value;
+
+        for (let i = 0; i < txt.length; i++) {
+            if (txt[i] == 'b' || txt[i] == 'B') {
+                counter += 1
+            }
+        }
+        document.getElementById('bResult').value = counter;
+    }
+
+    function range(start, end) {
+        tempArr = Array();
+        start = parseInt(start);
+        end = parseInt(end);
+        result = 0;
+
+        for (parseInt(start); start <= end; start++) {
+            tempArr.push(start);
+        }
+
+        tempArr.forEach(element => {
+            result += element
+        });
+
+        document.getElementById('sumOfRange').value = result;
+    }
+
+    function reverseArr() {
+        let arr = ["Banana", "Orange", "Apple", "Mango"];
+        let tempArr = Array();
+        let startIndex = arr.length;
+
+        while (startIndex >= 0) {
+            tempArr.push(arr[startIndex]);
+            startIndex--;
+        }
+        tempArr = tempArr.filter(element => element !== undefined);
+        document.getElementById('reverseArrResult').value = tempArr;
+        
+        // let otherTempArr = Array();
+        // while(i = arr.pop()){
+        //     otherTempArr.push(i);
+        // }
+    }
+</script>
+
+<style>
+    button {
+        margin-bottom: 10px;
+        margin-top: 5px
+    }
+</style>
